@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog title="Purchasing Group" id="purchasingGrpDialog" search="_handleValueHelpSearch" confirm="onPurchasingGroupSelect" liveChange="_handleValueHelpSearch" cancel="closeDlg" items="{path:'dashboardModel>/purchasingGrpData'}">
+    	<StandardListItem title="{dashboardModel>sKey}" description="{dashboardModel>desc}" />
+    </SelectDialog>
+</core:FragmentDefinition>

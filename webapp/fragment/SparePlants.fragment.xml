@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		id="sparePlantPopover"
+		title="Plants">
+		<List items="{dashboardModel>/sparePlantDetails/plants}" mode="SingleSelectMaster" selectionChange="onSparePlantSelect">
+			<items>
+				<StandardListItem
+					title="{dashboardModel>key}"/>
+			</items>
+		</List>
+	</Dialog>
+</core:FragmentDefinition>

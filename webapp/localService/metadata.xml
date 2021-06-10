@@ -1,0 +1,24 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZMM_SUPPLIER_ADHERENCE_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="Spares_Adherence" sap:content-version="1">
+				<Key><PropertyRef Name="Zyear"/></Key><Property Name="Zyear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Fiscal Year" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Adherence" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="2" sap:unicode="false" sap:label="Spares Aderence"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Zmonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Month" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="UIM_INFO" Type="Edm.String" sap:label="UIM Info" sap:visible="false" sap:updatable="false"/></EntityType>
+			<EntityType Name="Spares_Adhe_Details" sap:content-version="1">
+				<Key><PropertyRef Name="Zyear"/></Key><Property Name="Partno" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Zmonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Month" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Zyear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Fiscal Year" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Indntqty" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:label="Quantity"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Menge" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:label="Quantity"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Planvalue" Type="Edm.Decimal" Nullable="false" Precision="14" Scale="3" sap:unicode="false" sap:label="Amount in LC"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Receivedvalue" Type="Edm.Decimal" Nullable="false" Precision="14" Scale="3" sap:unicode="false" sap:label="Amount in LC"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Adherence" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="2" sap:unicode="false" sap:label="ADHERENCE"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="UIM_INFO" Type="Edm.String" sap:label="UIM Info" sap:visible="false" sap:updatable="false"/></EntityType>
+			<EntityContainer Name="ZMM_SUPPLIER_ADHERENCE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="Spares_AdherenceSet" EntityType="ZMM_SUPPLIER_ADHERENCE_SRV.Spares_Adherence" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="Spares_Adhe_DetailsSet" EntityType="ZMM_SUPPLIER_ADHERENCE_SRV.Spares_Adhe_Details" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/></EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZMM_SUPPLIER_ADHERENCE_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZMM_SUPPLIER_ADHERENCE_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

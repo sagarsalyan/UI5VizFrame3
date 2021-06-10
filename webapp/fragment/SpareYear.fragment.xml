@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt"
+	xmlns:u="sap.ui.unified" xmlns:calendar="sap.ui.unified.calendar">
+	<Dialog title="Spare Plant Year Selection">
+		<content>
+			<f:SimpleForm>
+				<f:content>
+					<DatePicker id="spareDate" displayFormat="yyyy" change="handleChange" class="sapUiSmallMarginBottom"/>
+					<!--<calendar:YearPicker/>-->
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button type="Emphasized" text="Ok" iconFirst="true" width="auto" visible="true" iconDensityAware="false"
+				press="onSpareYearOk"/>
+			<Button text="Cancel" type="Reject" iconFirst="true" width="auto" visible="true" iconDensityAware="false"
+				press="onSpareYearCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

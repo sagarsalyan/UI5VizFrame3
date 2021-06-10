@@ -1,0 +1,664 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="com.airdit.app.re_PurchasingGroupDashboard.controller.Dashboard" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:l="sap.ui.layout" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:table="sap.ui.table"
+	xmlns:commons="sap.suite.ui.commons" xmlns:viz="sap.viz.ui5.controls" xmlns:networkgraph="sap.suite.ui.commons.networkgraph">
+	<NavContainer id="dashboard" class="navContainerControl sapUiSmallMarginBottom" defaultTransitionName="fade">
+		<Page id="allChartBox" showHeader="false">
+			<content>
+				<l:BlockLayout id="idResponsiveSplitter" background="Dashboard">
+					<l:BlockLayoutRow accentCells="Accent1">
+						<l:BlockLayoutCell>
+							<commons:ChartContainer id="paymentChart" showFullScreen="true" title="Payment Details" showLegend="true" showPersonalization="false"
+								showSelectionDetails="false">
+								<commons:content>
+									<commons:ChartContainerContent>
+										<commons:content>
+											<viz:VizFrame id="vizPayment" uiConfig="{applicationSet:'fiori'}" height="16rem" vizType='pie' selectData="onSelectPayment">
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/paymentData}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Region" value="{dashboardModel>regionText}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Count" value="{dashboardModel>count}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="size" type="Measure" values="Count"/>
+													<viz.feeds:FeedItem uid="color" type="Dimension" values="Region"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+								</commons:content>
+							</commons:ChartContainer>
+						</l:BlockLayoutCell>
+						<l:BlockLayoutCell>
+							<commons:ChartContainer id="rgpChart" showFullScreen="true" title="RGP &amp; NRGP Details" showLegend="true" showPersonalization="false"
+								showSelectionDetails="false">
+								<commons:content>
+									<commons:ChartContainerContent>
+										<commons:content>
+											<viz:VizFrame id="vizRGP" uiConfig="{applicationSet:'fiori'}" height="16rem" vizType='pie' selectData="onSelectRGP">
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/rgpnrgpData}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Plant" value="{dashboardModel>PlantText}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Count" value="{dashboardModel>Count}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="size" type="Measure" values="Count"/>
+													<viz.feeds:FeedItem uid="color" type="Dimension" values="Plant"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+								</commons:content>
+							</commons:ChartContainer>
+						</l:BlockLayoutCell>
+					</l:BlockLayoutRow>
+					<l:BlockLayoutRow accentCells="Accent1">
+						<l:BlockLayoutCell>
+							<commons:ChartContainer id="spareChart" showFullScreen="true" title="Spare Details" showLegend="true" showPersonalization="false"
+								showSelectionDetails="false">
+								<commons:customIcons>
+									<core:Icon src="sap-icon://show" tooltip="Year Change" press="onsparePlantYearSelect"></core:Icon>
+								</commons:customIcons>
+								<commons:content>
+									<commons:ChartContainerContent>
+										<commons:content>
+											<viz:VizFrame id="vizSpare" uiConfig="{applicationSet:'fiori'}" height="16rem" vizType='column' selectData="onSelectSpare">
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/spareData}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Month" value="{dashboardModel>MonthText}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Percent" value="{dashboardModel>AdheranceVal}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Percent"/>
+													<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+								</commons:content>
+							</commons:ChartContainer>
+						</l:BlockLayoutCell>
+						<l:BlockLayoutCell>
+							<commons:ChartContainer id="posaChart" showFullScreen="true" title="PO/SA Release Details" showLegend="true" showPersonalization="false"
+								showSelectionDetails="false">
+								<commons:content>
+									<commons:ChartContainerContent>
+										<commons:content>
+											<viz:VizFrame id="vizPosa" uiConfig="{applicationSet:'fiori'}" height="16rem" vizType='pie' selectData="onSelectPosa">
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/posaData}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Type" value="{dashboardModel>level}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Nos" value="{dashboardModel>value}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="size" type="Measure" values="Nos"/>
+													<viz.feeds:FeedItem uid="color" type="Dimension" values="Type"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+								</commons:content>
+							</commons:ChartContainer>
+						</l:BlockLayoutCell>
+					</l:BlockLayoutRow>
+				</l:BlockLayout>
+			</content>
+		</Page>
+		<Page id="sparePlantChartBox" title="Spare Details" showNavButton="true" navButtonPress="onSparePlantChartback">
+			<content>
+				<l:BlockLayout id="spareBlock" background="Dashboard">
+					<l:BlockLayoutRow accentCells="Accent1">
+						<l:BlockLayoutCell>
+							<commons:ChartContainer id="sparePlantChart" showFullScreen="true" title="Spare Details" showLegend="true" showPersonalization="false"
+								showSelectionDetails="false">
+								<commons:content>
+									<commons:ChartContainerContent icon="sap-icon://bar-chart" title="Plan/Actual Quantity">
+										<commons:content>
+											<viz:VizFrame id="vizSparePlantQty" uiConfig="{applicationSet:'fiori'}" vizType='column' selectData="onSelectSparePlantBar">
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/pavpaq}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Month" value="{dashboardModel>MonthText}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Plan Quantity" value="{dashboardModel>Indntqty}"/>
+															<viz.data:MeasureDefinition name="Actual Quantity" value="{dashboardModel>Menge}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Plan Quantity,Actual Quantity"/>
+													<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+									<commons:ChartContainerContent icon="sap-icon://bar-chart" title="Plan/Actual Value">
+										<commons:content>
+											<viz:VizFrame id="vizSparePlantValue" uiConfig="{applicationSet:'fiori'}" vizType='column' selectData="onSelectSparePlantBar">
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/pavpaq}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Month" value="{dashboardModel>MonthText}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Plan Value" value="{dashboardModel>Planvalue}"/>
+															<viz.data:MeasureDefinition name="Actual Value" value="{dashboardModel>Receivedvalue}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Plan Value,Actual Value"/>
+													<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+								</commons:content>
+							</commons:ChartContainer>
+						</l:BlockLayoutCell>
+					</l:BlockLayoutRow>
+				</l:BlockLayout>
+			</content>
+		</Page>
+		<Page id="sparePlantTableBox" showNavButton="true" navButtonPress="onSparePlantTableback">
+			<headerContent>
+				<Button icon="sap-icon://download" text="Download" iconFirst="true" press="spareDownload"/>
+			</headerContent>
+			<content>
+				<table:Table rows="{dashboardModel>/sparePlantVendorTableData}" id="sparePlantVendorTable" selectionMode="None" visibleRowCount="10"
+					alternateRowColors="true">
+					<table:columns>
+						<table:Column >
+							<Label text="Part No."/>
+							<table:template>
+								<Text text="{dashboardModel>Partno}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column>
+							<Label text="Plan Qty"/>
+							<table:template>
+								<Text text="{ path: 'dashboardModel>Indntqty' }" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Received Qty"/>
+							<table:template>
+								<Text text="{dashboardModel>Menge}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Plan Value"/>
+							<table:template>
+								<Text text="{dashboardModel>Planvalue}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Received Value"/>
+							<table:template>
+								<Text text="{dashboardModel>Receivedvalue}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Percentage Adherence(%)"/>
+							<table:template>
+								<Text text="{dashboardModel>Adherence}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</content>
+		</Page>
+		<Page id="rgpnrgpTableBox" showNavButton="true" navButtonPress="onRgpNrgpTableback">
+			<headerContent>
+				<SearchField id="rgpNrgpTableSearch" width="20rem" search="onRGPNRGPSearch"/>
+				<Button icon="sap-icon://download" text="Download" iconFirst="true" press="rgpnrgpDownload"/>
+			</headerContent>
+			<content>
+				<table:Table rows="{dashboardModel>/rgpnrgpTableData}" id="rgpnrgpTable" selectionMode="None" visibleRowCount="20" alternateRowColors="true"
+					rowHeight="35" fixedColumnCount="3">
+					<table:columns>
+						<table:Column width="5rem">
+							<Label text="Sl. No."/>
+							<table:template>
+								<Text text="{dashboardModel>SlNo}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="10rem">
+							<Label text="PO Date"/>
+							<table:template>
+								<Text text="{ path: 'dashboardModel>Aedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="8rem">
+							<Label text="PO Number"/>
+							<table:template>
+								<Text text="{dashboardModel>Ebeln}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="20rem">
+							<Label text="Material"/>
+							<table:template>
+								<ObjectIdentifier title="{dashboardModel>Matnr}" text="{dashboardModel>Maktx}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="20rem">
+							<Label text="Vendor"/>
+							<table:template>
+								<ObjectIdentifier title="{dashboardModel>Lifnr}" text="{dashboardModel>Name1}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="5rem">
+							<Label text="PO Qty"/>
+							<table:template>
+								<Text text="{dashboardModel>Menge}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="15rem">
+							<Label text="Responsible Person"/>
+							<table:template>
+								<Text text="{dashboardModel>Person}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="10rem">
+							<Label text="Gate Exit Number"/>
+							<table:template>
+								<Text text="{dashboardModel>Gexno}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="10rem">
+							<Label text="Gate Exit Date"/>
+							<table:template>
+								<Text text="{path:'dashboardModel>Exdate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="5rem">
+							<Label text="Purchase Group"/>
+							<table:template>
+								<Text text="{dashboardModel>Ekgrp}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="10rem">
+							<Label text="Plant"/>
+							<table:template>
+								<Text text="{dashboardModel>Werks}"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="5rem">
+							<Label text="UOM"/>
+							<table:template>
+								<Text text="{dashboardModel>Meins}"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</content>
+		</Page>
+		<Page id="paymentTableBox" showNavButton="true" navButtonPress="onVendorback">
+			<headerContent>
+				<SearchField id="selectVendor" search="onVendorSearch" width="20rem"/>
+				<Button icon="sap-icon://download" text="Download" iconFirst="true" press="regionVendorDownload"/>
+			</headerContent>
+			<content>
+				<table:Table rows="{dashboardModel>/paymentTableData}" id="paymentTable" rowActionCount="1" selectionBehavior="RowOnly"
+					rowSelectionChange="onVendorSelect" visibleRowCount="15" selectionMode="Single" alternateRowColors="true" rowHeight="35">
+					<table:columns>
+						<table:Column width="10rem">
+							<Label text="Sl.No."/>
+							<table:template>
+								<Text text="{dashboardModel>Slno}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="" sortProperty="Vendor">
+							<Label text="Vendor ID"/>
+							<table:template>
+								<Text text="{dashboardModel>Vendor}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Vendor Name"/>
+							<table:template>
+								<Text text="{path:'dashboardModel>Name1'}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Purchase Group"/>
+							<table:template>
+								<Text text="{dashboardModel>Ekgrp}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</content>
+		</Page>
+		<Page id="paymentChartBox" title="Payment Details" showNavButton="true" navButtonPress="onPaymentChartback">
+			<content>
+				<l:BlockLayout id="paymentBlock" background="Dashboard">
+					<l:BlockLayoutRow accentCells="Accent1">
+						<l:BlockLayoutCell>
+							<commons:ChartContainer id="paymentRegionChart" showFullScreen="true" title="Payment Details" showLegend="true" showPersonalization="false"
+								showSelectionDetails="false">
+								<commons:customIcons>
+									<core:Icon src="sap-icon://show" tooltip="Year Change" press="onPayemntYearSelect"></core:Icon>
+								</commons:customIcons>
+								<commons:content>
+									<commons:ChartContainerContent icon="sap-icon://bar-chart">
+										<commons:content>
+											<viz:VizFrame id="vizPaymentDetail" uiConfig="{applicationSet:'fiori'}" vizType='column'>
+												<viz:dataset>
+													<viz.data:FlattenedDataset data="{dashboardModel>/paymentRegionDetail}">
+														<viz.data:dimensions>
+															<viz.data:DimensionDefinition name="Month" value="{dashboardModel>MonthText}"/>
+														</viz.data:dimensions>
+														<viz.data:measures>
+															<viz.data:MeasureDefinition name="Posted" value="{dashboardModel>Posted}"/>
+															<viz.data:MeasureDefinition name="Indexed" value="{dashboardModel>Indxed}"/>
+														</viz.data:measures>
+													</viz.data:FlattenedDataset>
+												</viz:dataset>
+												<viz:feeds>
+													<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Posted,Indexed"/>
+													<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month"/>
+												</viz:feeds>
+											</viz:VizFrame>
+										</commons:content>
+									</commons:ChartContainerContent>
+									<commons:ChartContainerContent icon="sap-icon://table-view">
+										<commons:content>
+											<table:Table rows="{dashboardModel>/vendorTableData}" id="vendorTable" selectionMode="None" visibleRowCount="10" fixedColumnCount="3"
+												alternateRowColors="true" rowHeight="35">
+												<table:extension>
+													<OverflowToolbar>
+														<Title id="vendorTableTitle"/>
+														<ToolbarSpacer/>
+														<SearchField id="selectVendorDetail" search="onVendorDeatilSearch" width="20rem"/>
+														<Button icon="sap-icon://download" text="Download" iconFirst="true" press="vendorMaterialDownload"/>
+													</OverflowToolbar>
+												</table:extension>
+												<table:columns>
+													<table:Column width="5rem">
+														<Label text="Sl. No."/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Slno'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Doc Id"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Docid'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="7rem">
+														<Label text="Vendor"/>
+														<table:template>
+															<Text text="{dashboardModel>Lifnr}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="15rem">
+														<Label text="Vendor Name"/>
+														<table:template>
+															<Text text="{dashboardModel>VendName}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="15rem">
+														<Label text="Exception reason"/>
+														<table:template>
+															<Text text="{dashboardModel>Objtxt}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="15rem">
+														<Label text="VIM Process Status Text"/>
+														<table:template>
+															<Text text="{dashboardModel>StatusDesc}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Reference"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Xblnr'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Document Date"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Bldat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Net Amount"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>NetAmount'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Gross Invoice Amount"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>GrossAmount'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Accounting Document No."/>
+														<table:template>
+															<Text text="{path:'dashboardModel>BelnrFi'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Fiscal year"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Gjahr'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Document Currency"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Waers'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="8rem">
+														<Label text="Priority"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Priority'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Due Date"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>DueDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="9rem">
+														<Label text="Target System"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>TargetSystem'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="IDoc No."/>
+														<table:template>
+															<Text text="{path:'dashboardModel>EdiDocnum'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Start On"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Starton', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Start At"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Startat',type: 'sap.ui.model.odata.type.Time'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Parked On"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Parkedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Parked At"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Parkedat',type: 'sap.ui.model.odata.type.Time'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Posted On"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Postedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Posted At"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Postedat',type: 'sap.ui.model.odata.type.Time'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Paid On"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Paidon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Paid At"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Paidat', type: 'sap.ui.model.odata.type.Time'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="10rem">
+														<Label text="Clearing Document"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>augbl'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+													<table:Column width="15rem">
+														<Label text="Description"/>
+														<table:template>
+															<Text text="{path:'dashboardModel>Eknam'}" wrapping="false"/>
+														</table:template>
+													</table:Column>
+												</table:columns>
+											</table:Table>
+										</commons:content>
+									</commons:ChartContainerContent>
+								</commons:content>
+							</commons:ChartContainer>
+						</l:BlockLayoutCell>
+					</l:BlockLayoutRow>
+				</l:BlockLayout>
+			</content>
+		</Page>
+		<Page id="posaTableBox" showNavButton="true" navButtonPress="onPosaTableback">
+			<headerContent>
+				<SearchField id="selectPosa" search="onPosaSearch" width="20rem"/>
+				<Button icon="sap-icon://download" text="Download" iconFirst="true" press="posaDownload"/>
+			</headerContent>
+			<content>
+				<table:Table rows="{dashboardModel>/posaTableData}" id="posaTable" selectionMode="None" visibleRowCount="10" alternateRowColors="true"
+					rowHeight="35">
+					<table:columns>
+							<table:Column >
+							<Label text="Sl. No."/>
+							<table:template>
+								<Text text="{dashboardModel>Slno}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column >
+							<Label text="PO Number"/>
+							<table:template>
+								<Text text="{dashboardModel>Ebeln}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Category"/>
+							<table:template>
+								<Text text="{dashboardModel>Bstyp}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Vendor"/>
+							<table:template>
+								<Text text="{path:'dashboardModel>Lifnr'}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Company Code"/>
+							<table:template>
+								<Text text="{dashboardModel>Bukrs}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Purchase Grp"/>
+							<table:template>
+								<Text text="{dashboardModel>Ekgrp}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Purchase Org"/>
+							<table:template>
+								<Text text="{dashboardModel>Ekorg}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Release Group"/>
+							<table:template>
+								<Text text="{dashboardModel>Frggr}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Release Strategy"/>
+							<table:template>
+								<Text text="{dashboardModel>Frgsx}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Status"/>
+							<table:template>
+								<Text text="{dashboardModel>Frgzu}" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column>
+							<Label text="Created Date"/>
+							<table:template>
+								<Text text="{ path: 'dashboardModel>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Validity Start"/>
+							<table:template>
+								<Text text="{path:'dashboardModel>Kdatb', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }" wrapping="false"/>
+							</table:template>
+						</table:Column>
+						<table:Column width="">
+							<Label text="Validity End"/>
+							<table:template>
+								<Text text="{path:'dashboardModel>Kdate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }" wrapping="false"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</content>
+		</Page>
+	</NavContainer>
+</mvc:View>

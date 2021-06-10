@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt"
+	xmlns:u="sap.ui.unified">
+	<Dialog title="Payment Year Selection">
+		<content>
+			<f:SimpleForm>
+				<f:content>
+					<DatePicker id="payDate" displayFormat="yyyy" valueFormat="yyyy" change="handleChange"/>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button type="Emphasized" text="Ok" iconFirst="true" width="auto" visible="true" iconDensityAware="false"
+				press="onPaymentYearOk"/>
+			<Button text="Cancel" type="Reject" iconFirst="true" width="auto" visible="true" iconDensityAware="false"
+				press="onPaymentYearCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
